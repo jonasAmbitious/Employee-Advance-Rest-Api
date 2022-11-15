@@ -3,8 +3,11 @@ package net.jonas.employeeav.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+@SuppressWarnings("JpaAttributeTypeInspection")
 @Entity
 @Table(name = "STAFF_LOCATION", schema = "PUBLIC", catalog = "EMPLOYEEAVDB")
 public class StaffLocation {
@@ -30,9 +33,14 @@ public class StaffLocation {
     @Basic
     @Column(name = "DATE_LAST_MODIFIED")
     private LocalDateTime dateLastModified;
+
     @Basic
     @Column(name = "MODIFICATION_COUNT")
     private Integer modificationCount;
+
+
+    @OneToOne(mappedBy = "stafflocation",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Staff staff ;
 
     public Integer getLocationKey() {
         return locationKey;
@@ -96,6 +104,10 @@ public class StaffLocation {
 
     public void setModificationCount(Integer modificationCount) {
         this.modificationCount = modificationCount;
+    }
+
+    public Staff getStaff() {
+        return staff;
     }
 
     @Override

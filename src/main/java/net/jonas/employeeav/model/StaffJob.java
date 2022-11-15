@@ -3,8 +3,9 @@ package net.jonas.employeeav.model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
-
+import java.util.Set;
 @Entity
 @Table(name = "STAFF_JOB", schema = "PUBLIC", catalog = "EMPLOYEEAVDB")
 public class StaffJob {
@@ -36,10 +37,14 @@ public class StaffJob {
     @Basic
     @Column(name = "DATE_LAST_MODIFIED")
     private LocalDateTime dateLastModified;
+
+
     @Basic
     @Column(name = "MODIFICATION_COUNT")
     private Integer modificationCount;
 
+    @OneToOne(mappedBy = "staffjobs")
+    private Staff staff ;
     public Integer getJopKey() {
         return jopKey;
     }
@@ -118,6 +123,10 @@ public class StaffJob {
 
     public void setModificationCount(Integer modificationCount) {
         this.modificationCount = modificationCount;
+    }
+
+    public Staff Staff() {
+        return staff;
     }
 
     @Override

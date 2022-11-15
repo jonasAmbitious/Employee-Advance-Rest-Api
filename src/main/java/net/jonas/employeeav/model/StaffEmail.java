@@ -3,9 +3,12 @@ package net.jonas.employeeav.model;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
-
+@SuppressWarnings("JpaAttributeTypeInspection")
 @Entity
 @Table(name = "STAFF_EMAIL", schema = "PUBLIC", catalog = "EMPLOYEEAVDB")
 public class StaffEmail {
@@ -13,6 +16,7 @@ public class StaffEmail {
     @Id
     @Column(name = "EMAIL_KEY")
     private Integer emailKey;
+
     @Basic
     @Column(name = "STAFF_ID")
     private Integer staffId;
@@ -31,6 +35,17 @@ public class StaffEmail {
     @Basic
     @Column(name = "MODIFICATION_COUNT")
     private Integer modificationCount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Staff staff;
+
+    public Staff getStaff_email() {
+        return staff;
+    }
+
+    public void setStaff_email(Staff staff_email) {
+        this.staff = staff_email;
+    }
 
     public Integer getEmailKey() {
         return emailKey;
@@ -87,6 +102,10 @@ public class StaffEmail {
     public void setModificationCount(Integer modificationCount) {
         this.modificationCount = modificationCount;
     }
+
+//    public Set<Staff> getStaff_Emails() {
+//        return staff_email;
+//    }
 
     @Override
     public boolean equals(Object o) {
